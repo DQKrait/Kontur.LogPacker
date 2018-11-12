@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kontur.LogPacker", "Kontur.LogPacker\Kontur.LogPacker.csproj", "{3F88AEB0-4119-4F4F-B43D-046131822B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kontur.LogPacker.SubmitHelper", "Kontur.LogPacker.SubmitHelper\Kontur.LogPacker.SubmitHelper.csproj", "{19B7445C-9B3C-4B6D-A594-58159FFFBDA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kontur.LogPacker.SelfCheck", "Kontur.LogPacker.SelfCheck\Kontur.LogPacker.SelfCheck.csproj", "{36CDD57D-7F51-4B6C-816D-181FC0B41880}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kontur.LogPackerGZip", "Kontur.LogPackerGZip\Kontur.LogPackerGZip.csproj", "{AAE211BE-4DAF-483A-ACA6-4FA32148984C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F88AEB0-4119-4F4F-B43D-046131822B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F88AEB0-4119-4F4F-B43D-046131822B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F88AEB0-4119-4F4F-B43D-046131822B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F88AEB0-4119-4F4F-B43D-046131822B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19B7445C-9B3C-4B6D-A594-58159FFFBDA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19B7445C-9B3C-4B6D-A594-58159FFFBDA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19B7445C-9B3C-4B6D-A594-58159FFFBDA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19B7445C-9B3C-4B6D-A594-58159FFFBDA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36CDD57D-7F51-4B6C-816D-181FC0B41880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36CDD57D-7F51-4B6C-816D-181FC0B41880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36CDD57D-7F51-4B6C-816D-181FC0B41880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36CDD57D-7F51-4B6C-816D-181FC0B41880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE211BE-4DAF-483A-ACA6-4FA32148984C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE211BE-4DAF-483A-ACA6-4FA32148984C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE211BE-4DAF-483A-ACA6-4FA32148984C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE211BE-4DAF-483A-ACA6-4FA32148984C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
