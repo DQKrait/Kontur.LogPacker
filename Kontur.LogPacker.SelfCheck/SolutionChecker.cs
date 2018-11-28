@@ -58,7 +58,7 @@ namespace Kontur.LogPacker.SelfCheck
                 }
                 catch (Exception error)
                 {
-                    Console.WriteLine($"\tFailed: {error.InnerException.Message}");
+                    Console.WriteLine($"\tFailed: {error?.InnerException?.Message ?? error.ToString()}");
                     someTestsFailed = true;
                 }
                 Console.WriteLine();
@@ -129,9 +129,12 @@ namespace Kontur.LogPacker.SelfCheck
             Compress(useGzip: true);
             var gzipLength = new FileInfo(CompressedFile).Length;
 
-            Console.WriteLine($"File sizes: {gzipLength} bytes ({gzipLength * 100 / originalLength:f2}%) - gzip, {solutionLength} bytes ({solutionLength * 100 / originalLength:f2}%) - solution");
-            if (solutionLength >= gzipLength)
-                throw new Exception("The length of the file produced by tested solution is not less than the length of the file produced by GZip!");
+            var gzipRatePct = gzipLength * 100 / originalLength;
+            var solutionRatePct = solutionLength * 100 / originalLength;
+
+            Console.WriteLine($"File sizes: {gzipLength} bytes ({gzipRatePct:f2}%) - gzip, {solutionLength} bytes ({solutionRatePct:f2}%) - solution");
+            if (gzipRatePct - solutionRatePct < 1)
+                throw new Exception("The compression rate of the tested solution should be at least 1 percent point better than the compression rate of GZip!");
         }
 
         private void Should_restore_original_file_after_decompression()

@@ -7,7 +7,7 @@ namespace Kontur.LogPackerGZip
     {
         public void Compress(Stream inputStream, Stream outputStream)
         {
-            using (var gzipStream = new GZipStream(outputStream, CompressionLevel.Fastest, true))
+            using (var gzipStream = new GZipStream(outputStream, CompressionLevel.Optimal, true))
                 inputStream.CopyTo(gzipStream);
         }
 
