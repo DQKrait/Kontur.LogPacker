@@ -29,8 +29,10 @@ namespace Kontur.LogPacker.SelfCheck
             nameof(Should_restore_original_file_after_decompression),
             nameof(Should_correctly_handle_random_binary_data),
             nameof(Should_produce_input_smaller_than_gzip),
-            nameof(Should_not_be_too_slow),
-            nameof(Should_not_be_too_slow_with_random_data_input),
+            nameof(Should_not_compress_too_slow),
+            nameof(Should_not_compress_too_slow_with_random_data_input),
+            nameof(Should_not_decompress_too_slow),
+            nameof(Should_not_decompress_too_slow_with_random_data_input),
             nameof(Should_not_leave_temporary_files_after_compression),
             nameof(Should_not_leave_temporary_files_after_decompression),
         };
@@ -69,18 +71,18 @@ namespace Kontur.LogPacker.SelfCheck
 
         #region Helpers
 
-        private void Compress(bool useGzip = false)
+        private void Compress(bool useGzip = false, string outPath = null)
         {
             var project = useGzip ? pathToGZipBinary : pathToSolutionBinary;
             
-            RunSolution(project, $"{UncompressedFile} {CompressedFile}");
+            RunSolution(project, $"{UncompressedFile} {outPath ?? CompressedFile}");
         }
         
-        private void Decompress(bool useGzip = false)
+        private void Decompress(bool useGzip = false, string inPath = null)
         {
             var project = useGzip ? pathToGZipBinary : pathToSolutionBinary;
 
-            RunSolution(project, $"-d {CompressedFile} {DecompressedFile}");
+            RunSolution(project, $"-d {inPath ?? CompressedFile} {DecompressedFile}");
         }
 
         private TimeSpan Time(Action action)
@@ -158,7 +160,7 @@ namespace Kontur.LogPacker.SelfCheck
             Should_restore_original_file_after_decompression();
         }
 
-        private void Should_not_be_too_slow()
+        private void Should_not_compress_too_slow()
         {
             var gzipTime = Time(() => Compress(useGzip: true));
             var solutionTime = Time(() => Compress());
@@ -168,13 +170,36 @@ namespace Kontur.LogPacker.SelfCheck
                 throw new Exception("Compression time of the tested solution was more than twice the time of GZip compression!");
         }
         
-        private void Should_not_be_too_slow_with_random_data_input()
+        private void Should_not_compress_too_slow_with_random_data_input()
         {
             var bytes = new byte[1024 * 1024];
             new Random().NextBytes(bytes);
             File.WriteAllBytes(UncompressedFile, bytes);
 
-            Should_not_be_too_slow();
+            Should_not_compress_too_slow();
+        }
+
+        private void Should_not_decompress_too_slow()
+        {
+            var gzipOutput = CompressedFile + "_gzip";
+            Compress(useGzip: true, outPath: gzipOutput);
+            Compress();
+            
+            var gzipTime = Time(() => Decompress(useGzip: true, inPath: gzipOutput));
+            var solutionTime = Time(() => Decompress());
+
+            Console.WriteLine($"Decompression times: {gzipTime} - gzip, {solutionTime} - solution");
+            if (solutionTime.Divide(2) > gzipTime)
+                throw new Exception("Decompression time of the tested solution was more than twice the time of GZip decompression!");
+        }
+        
+        private void Should_not_decompress_too_slow_with_random_data_input()
+        {
+            var bytes = new byte[1024 * 1024];
+            new Random().NextBytes(bytes);
+            File.WriteAllBytes(UncompressedFile, bytes);
+
+            Should_not_decompress_too_slow();
         }
         
         private void Should_not_leave_temporary_files_after_compression()
