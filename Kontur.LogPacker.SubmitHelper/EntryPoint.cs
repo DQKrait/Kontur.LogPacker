@@ -39,7 +39,7 @@ namespace Kontur.LogPacker.SubmitHelper
             }
         }
 
-        private static readonly string[] IgnoredSubfolders = {"bin", "obj", ".idea", ".vs"};
+        private static readonly string[] IgnoredSubfolders = {"bin", "obj", ".idea", ".vs", ".git"};
 
         private static IEnumerable<string> TraverseDirectory(string directory)
         {
